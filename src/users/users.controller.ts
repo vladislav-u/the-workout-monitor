@@ -22,14 +22,14 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Get(':id')
+  findById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findById(id);
+  }
+
   @Get()
   findAll() {
     return this.usersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
   }
 
   @Patch(':id')

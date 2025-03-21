@@ -10,6 +10,9 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ unique: true })
+  auth0Id: string;
+
   @Column({ length: 100 })
   name: string;
 
