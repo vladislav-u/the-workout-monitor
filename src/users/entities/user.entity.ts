@@ -1,7 +1,9 @@
+import { Workout } from 'src/workouts/entities/workout.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -9,9 +11,6 @@ import {
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ unique: true })
-  auth0Id: string;
 
   @Column({ length: 100 })
   name: string;
@@ -21,6 +20,9 @@ export class User {
 
   @Column({ type: 'text' })
   password: string;
+
+  @OneToMany(() => Workout, (workout_template) => workout_template.user)
+  workout_templates: Workout[];
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
