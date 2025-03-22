@@ -1,9 +1,11 @@
+import { WorkoutExercise } from 'src/exercises/entities/workout-exercise.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -17,7 +19,13 @@ export class Workout {
   })
   user: User;
 
-  @Column({ length: 255 })
+  @OneToMany(
+    () => WorkoutExercise,
+    (workoutExercise) => workoutExercise.workout,
+  )
+  workoutExercises: WorkoutExercise[];
+
+  @Column({ type: 'varchar', length: 255 })
   name: string;
 
   @CreateDateColumn({ type: 'timestamp' })

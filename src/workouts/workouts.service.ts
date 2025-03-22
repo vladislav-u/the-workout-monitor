@@ -79,6 +79,6 @@ export class WorkoutsService {
 
     await this.workoutsRepository.delete(id);
 
-    return { message: `Workout with ID ${id} has been deleted successfully.` };
+    return { message: `Workout with ID ${id} deleted` };
   }
 }
