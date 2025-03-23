@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { WorkoutsModule } from './workouts/workouts.module';
 import { ExercisesModule } from './exercises/exercises.module';
 import { SessionsModule } from './sessions/sessions.module';
+import { SetsModule } from './sets/sets.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SessionsModule } from './sessions/sessions.module';
     WorkoutsModule,
     ExercisesModule,
     SessionsModule,
+    SetsModule,
   ],
 })
 export class AppModule {}

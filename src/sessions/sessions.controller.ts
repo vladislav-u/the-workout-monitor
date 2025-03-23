@@ -21,39 +21,54 @@ export class SessionsController {
 
   @Post(':workoutId')
   @UseGuards(AuthGuard('jwt'))
-  create(
+  async create(
     @Param('workoutId', ParseIntPipe) workoutId: number,
     @Body() createSessionDto: CreateSessionDto,
     @UserId() userId: number,
   ) {
-    return this.sessionsService.create(userId, workoutId, createSessionDto);
+    const session = await this.sessionsService.create(
+      userId,
+      workoutId,
+      createSessionDto,
+    );
+    return { message: 'Session created', session };
   }
 
   @Get('workout/:workoutId')
   @UseGuards(AuthGuard('jwt'))
-  findAll(@Param('workoutId', ParseIntPipe) workoutId: number) {
-    return this.sessionsService.findAll(workoutId);
+  async findAll(@Param('workoutId', ParseIntPipe) workoutId: number) {
+    const sessions = await this.sessionsService.findAll(workoutId);
+    return { message: 'Sessions fetched', sessions };
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
-  findById(@Param('id', ParseIntPipe) id: number) {
-    return this.sessionsService.findById(id);
+  async findById(@Param('id', ParseIntPipe) id: number) {
+    const session = await this.sessionsService.findById(id);
+    return { message: 'Session fetched', session };
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'))
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSessionDto: UpdateSessionDto,
     @UserId() userId: number,
   ) {
-    return this.sessionsService.update(userId, id, updateSessionDto);
+    const session = await this.sessionsService.update(
+      userId,
+      id,
+      updateSessionDto,
+    );
+    return { message: 'Session updated', session };
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id', ParseIntPipe) id: number, @UserId() userId: number) {
-    return this.sessionsService.remove(userId, id);
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @UserId() userId: number,
+  ) {
+    return await this.sessionsService.remove(userId, id);
   }
 }

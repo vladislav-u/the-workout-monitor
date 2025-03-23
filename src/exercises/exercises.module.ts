@@ -17,5 +17,6 @@ import { ExercisesService } from './exercises.service';
   ],
   controllers: [ExercisesController],
   providers: [ExercisesService, WorkoutsService],
+  exports: [ExercisesService, TypeOrmModule],
 })
 export class ExercisesModule {}

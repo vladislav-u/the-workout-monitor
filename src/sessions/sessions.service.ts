@@ -96,7 +96,7 @@ export class SessionsService {
 
     if (session.user.id !== userId) {
       throw new ForbiddenException(
-        'You do not have permission to update this session',
+        'You do not have permission to delete this session',
       );
     }
 

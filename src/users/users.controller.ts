@@ -18,30 +18,34 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
-  @Get(':id')
-  findById(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findById(id);
+  async create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto);
+    return { message: 'User created', user };
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    const users = await this.usersService.findAll();
+    return { message: 'Users fetched', users };
+  }
+
+  @Get(':id')
+  async findById(@Param('id', ParseIntPipe) id: number) {
+    const user = await this.usersService.findById(id);
+    return { message: 'User fetched', user };
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    return this.usersService.update(id, updateUserDto);
+    const user = await this.usersService.update(id, updateUserDto);
+    return { message: 'User updated', user };
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.remove(id);
   }
 }
