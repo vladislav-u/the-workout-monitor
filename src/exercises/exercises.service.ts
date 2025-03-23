@@ -15,7 +15,7 @@ import { WorkoutExercise } from './entities/workout-exercise.entity';
 export class ExercisesService {
   constructor(
     @InjectRepository(Exercise)
-    private readonly exerciseRepository: Repository<Exercise>,
+    private readonly exercisesRepository: Repository<Exercise>,
     @InjectRepository(WorkoutExercise)
     private readonly workoutExerciseRepository: Repository<WorkoutExercise>,
     private readonly workoutsService: WorkoutsService,
@@ -33,12 +33,12 @@ export class ExercisesService {
 
     if (workout.user.id !== userId) {
       throw new ForbiddenException(
-        'You do not have permission to craete exercise',
+        'You do not have permission to create exercise',
       );
     }
 
-    const exercise = this.exerciseRepository.create(createExerciseDto);
-    await this.exerciseRepository.save(exercise);
+    const exercise = this.exercisesRepository.create(createExerciseDto);
+    await this.exercisesRepository.save(exercise);
 
     const workoutExercise = this.workoutExerciseRepository.create({
       workout,
@@ -58,7 +58,7 @@ export class ExercisesService {
   }
 
   async findById(id: number) {
-    return await this.exerciseRepository.findOne({ where: { id } });
+    return await this.exercisesRepository.findOne({ where: { id } });
   }
 
   async update(
@@ -90,7 +90,7 @@ export class ExercisesService {
     }
 
     Object.assign(exercise, updateExerciseDto);
-    return await this.exerciseRepository.save(exercise);
+    return await this.exercisesRepository.save(exercise);
   }
 
   async remove(userId: number, exerciseId: number) {
@@ -115,7 +115,7 @@ export class ExercisesService {
       throw new NotFoundException(`Exercise with ID ${exerciseId} not found`);
     }
 
-    await this.exerciseRepository.delete(exerciseId);
+    await this.exercisesRepository.delete(exerciseId);
 
     return { message: `Exercise with ID ${exerciseId} deleted` };
   }

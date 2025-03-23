@@ -1,3 +1,4 @@
+import { Session } from 'src/sessions/entities/session.entity';
 import { Workout } from 'src/workouts/entities/workout.entity';
 import {
   Column,
@@ -24,6 +25,9 @@ export class User {
   @OneToMany(() => Workout, (workout_template) => workout_template.user)
   workout_templates: Workout[];
 
+  @OneToMany(() => Session, (session) => session.user)
+  sessions: Session[];
+
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  createdAt: Date;
 }
